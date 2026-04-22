@@ -1,173 +1,555 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Full Circle Wealth</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      min-height: 100vh;
-      background: #06091a;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 48px 20px 60px;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-    .logo-wrap { margin-bottom: 20px; }
-    .logo-wrap img { width: 100px; height: 100px; display: block; }
-    .brand-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 800; font-size: 28px; color: #ffffff;
-      letter-spacing: 0.07em; text-transform: uppercase;
-      text-align: center; margin-bottom: 6px;
-    }
-    .tagline {
-      font-size: 13px; color: #5a7aaa;
-      text-align: center; margin-bottom: 32px; letter-spacing: 0.02em;
-    }
-    .divider {
-      width: 40px; height: 2px; background: #1e3a6e;
-      margin: 0 auto 32px; border-radius: 2px;
-    }
-    .links {
-      display: flex; flex-direction: column;
-      gap: 13px; width: 100%; max-width: 400px;
-    }
-    .btn {
-      display: flex; align-items: center; gap: 14px;
-      padding: 17px 20px; border-radius: 12px;
-      text-decoration: none;
-      transition: transform 0.15s ease, opacity 0.15s ease;
-    }
-    .btn:hover { transform: translateY(-2px); opacity: 0.9; }
-    .btn:active { transform: scale(0.98); }
-    .btn.cta { background: #00c8ff; }
-    .btn.dark { background: #0d1530; border: 1px solid #1e3a6e; }
-    .btn.purple { background: #110d2e; border: 1px solid #3a2a7a; }
-    .btn.red { background: #1a0a0a; border: 1px solid #6e1e1e; }
-    .icon-box {
-      width: 36px; height: 36px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .cta .icon-box { background: rgba(0,0,0,0.15); }
-    .dark .icon-box { background: #162040; }
-    .purple .icon-box { background: #1e1545; }
-    .red .icon-box { background: #2a0f0f; }
-    .btn-text { flex: 1; }
-    .btn-label {
-      font-weight: 700; font-size: 14px; display: block;
-      text-transform: uppercase; letter-spacing: 0.05em;
-    }
-    .cta .btn-label { color: #06091a; }
-    .dark .btn-label, .purple .btn-label, .red .btn-label { color: #ffffff; }
-    .btn-sub { font-size: 12px; font-weight: 400; display: block; margin-top: 2px; }
-    .cta .btn-sub { color: rgba(0,0,0,0.5); }
-    .dark .btn-sub { color: #4a6a9a; }
-    .purple .btn-sub { color: #6a50aa; }
-    .red .btn-sub { color: #8a3a3a; }
-    .arrow { font-size: 15px; flex-shrink: 0; }
-    .cta .arrow { color: rgba(0,0,0,0.35); }
-    .dark .arrow { color: #1e3a6e; }
-    .purple .arrow { color: #4a3a8a; }
-    .red .arrow { color: #6e2e2e; }
-    .footer {
-      margin-top: 44px; font-size: 11px; color: #1e2e4e;
-      letter-spacing: 0.06em; text-transform: uppercase;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FCW — Member Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cyan: #00d4ff;
+    --cyan-dim: #0099cc;
+    --cyan-glow: rgba(0, 212, 255, 0.15);
+    --cyan-border: rgba(0, 212, 255, 0.2);
+    --purple: #a855f7;
+    --purple-dim: #7c3aed;
+    --purple-glow: rgba(168, 85, 247, 0.12);
+    --purple-border: rgba(168, 85, 247, 0.2);
+    --orange: #ff6a00;
+    --red: #e8273a;
+    --fire-glow: rgba(232, 39, 58, 0.12);
+    --fire-border: rgba(232, 39, 58, 0.2);
+    --teal: #00c9a7;
+    --dark: #04060f;
+    --dark-2: #07091a;
+    --dark-3: #0d1025;
+    --dark-4: #111530;
+    --text: #eef2ff;
+    --text-muted: #4a5a7a;
+    --border: rgba(0, 212, 255, 0.1);
+    --radius: 12px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Ambient background orbs */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -150px; left: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 65%);
+    pointer-events: none; z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 65%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(4,6,15,0.92);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    color: var(--cyan);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--text); }
+
+  .discord-btn {
+    display: inline-block;
+    border: 1px solid var(--purple-border);
+    color: var(--purple);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+    padding: 0.75rem 1.75rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+  .discord-btn:hover {
+    background: var(--purple-glow);
+    color: var(--purple);
+    box-shadow: 0 0 20px rgba(168,85,247,0.2);
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 2rem 3rem;
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .welcome-badge {
+    display: inline-block;
+    background: rgba(0, 212, 255, 0.08);
+    border: 1px solid var(--cyan-border);
+    color: var(--cyan);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--cyan);
+  }
+
+  .hero p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+  }
+
+  .start-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+    color: var(--dark);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(0,212,255,0.25);
+  }
+  .start-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(0,212,255,0.4);
+  }
+
+  /* DIVIDER */
+  .divider {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .divider::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,212,255,0.25), rgba(168,85,247,0.2), rgba(232,39,58,0.15), transparent);
+  }
+
+  /* SECTION */
+  section {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 1.5rem;
+  }
+
+  section h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+
+  /* MODULE CARDS */
+  .modules { display: flex; flex-direction: column; gap: 1rem; }
+
+  .module-card {
+    background: var(--dark-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+
+  .module-card:hover {
+    border-color: var(--cyan-border);
+    background: var(--dark-4);
+    transform: translateX(4px);
+    box-shadow: 0 0 20px rgba(0,212,255,0.06), inset 0 0 0 1px rgba(0,212,255,0.08);
+  }
+
+  .module-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--cyan);
+    line-height: 1;
+    min-width: 2rem;
+    padding-top: 2px;
+    text-shadow: 0 0 20px rgba(0,212,255,0.4);
+  }
+
+  .module-info { flex: 1; }
+
+  .module-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .module-lessons {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .module-arrow {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    align-self: center;
+    transition: color 0.2s, transform 0.2s;
+  }
+
+  .module-card:hover .module-arrow { color: var(--cyan); }
+
+  /* LESSONS DROPDOWN */
+  .lessons-list {
+    display: none;
+    padding: 1rem 0 0.25rem 3.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .lessons-list.open { display: flex; }
+
+  .lesson-item {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(0,212,255,0.05);
+    transition: color 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .lesson-item:hover { color: var(--cyan); }
+
+  .lesson-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--cyan);
+    flex-shrink: 0;
+    box-shadow: 0 0 6px rgba(0,212,255,0.5);
+  }
+
+  /* DISCORD CARD */
+  .discord-card {
+    background: var(--dark-3);
+    border: 1px solid var(--purple-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(168,85,247,0.05);
+  }
+
+  .discord-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 1rem;
+    background: var(--purple-glow);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--purple-border);
+  }
+
+  .discord-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .discord-card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .discord-join-btn {
+    display: inline-block;
+    border: 1px solid var(--purple-border);
+    color: var(--purple);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+    padding: 0.75rem 1.75rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+  .discord-join-btn:hover {
+    background: var(--purple-glow);
+    box-shadow: 0 0 24px rgba(168,85,247,0.2);
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2.5rem 2rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  footer::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,212,255,0.2), rgba(168,85,247,0.15), transparent);
+    margin-bottom: 2.5rem;
+  }
+
+  footer strong { color: var(--cyan); }
+
+  @media (max-width: 480px) {
+    nav { padding: 1rem; }
+    .hero { padding: 3rem 1rem 2rem; }
+    section { padding: 2rem 1rem; }
+  }
+</style>
 </head>
 <body>
 
-  <div class="brand-name">Full Circle Wealth</div>
-  <div class="tagline">Build real wealth. Starting now.</div>
-  <div class="divider"></div>
+<nav>
+  <a href="#" class="nav-logo">FCW <span>Member Hub</span></a>
+  <a href="https://discord.gg/T9URtjaBXV" class="discord-btn" style="padding: 0.45rem 1rem; font-size: 0.8rem;">Join Discord</a>
+</nav>
 
-  <div class="links">
+<div class="hero">
+  <div class="welcome-badge">Welcome to Full Circle Wealth</div>
+  <h1>You made the right<br><em>decision.</em></h1>
+  <p>Your system is ready. Start with Module 1 and go in order. Everything you need is right here.</p>
+  <a href="#modules" class="start-btn">Start Module 1 →</a>
+</div>
 
-    <a class="btn cta" href="https://stan.store/fullcirclewealth/p/the-beginner-investing-system" target="_blank" rel="noopener">
-      <div class="icon-box">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.65)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-          <path d="M2 17l10 5 10-5"/>
-          <path d="M2 12l10 5 10-5"/>
-        </svg>
-      </div>
-      <div class="btn-text">
-        <span class="btn-label">Beginner Investing System</span>
-        <span class="btn-sub">The 6-module course — Start here</span>
-      </div>
-      <span class="arrow">→</span>
-    </a>
+<div class="divider"></div>
 
-    <a class="btn dark" href="https://discord.gg/caRzsTtJ" target="_blank" rel="noopener">
-      <div class="icon-box">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#00c8ff">
-          <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.022.015.043.03.056a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
-        </svg>
-      </div>
-      <div class="btn-text">
-        <span class="btn-label">Join the Community</span>
-        <span class="btn-sub">FCW Discord — free to join</span>
-      </div>
-      <span class="arrow">→</span>
-    </a>
+<section id="modules">
+  <p class="section-label">The System</p>
+  <h2>Your 6 Modules</h2>
+  <div class="modules">
 
-    <a class="btn purple" href="https://www.instagram.com/fullcirclewealth_/" target="_blank" rel="noopener">
-      <div class="icon-box">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a070ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-        </svg>
+    <div>
+      <div class="module-card" onclick="toggleModule('m1', this)">
+        <div class="module-num">01</div>
+        <div class="module-info">
+          <div class="module-title">Welcome & Foundation</div>
+          <div class="module-lessons">3 lessons · Start here</div>
+        </div>
+        <div class="module-arrow">›</div>
       </div>
-      <div class="btn-text">
-        <span class="btn-label">Instagram</span>
-        <span class="btn-sub">@fullcirclewealth_</span>
+      <div class="lessons-list" id="m1">
+        <a href="https://drive.google.com/file/d/16FuUnCPUWeI4NH123SsEXMPnKYRMpcdb/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 1 — Welcome to Full Circle Wealth</a>
+        <a href="https://drive.google.com/file/d/1dNQTDol407pgYC7eshBAMpYnw7gScqwn/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 2 — How Investing Actually Works</a>
+        <a href="https://drive.google.com/file/d/1d9ZOGi1wBO0fD7HJ2o97f8lxvJCcrCqe/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 3 — Why Investing Feels Scary (And How to Overcome It)</a>
       </div>
-      <span class="arrow">→</span>
-    </a>
+    </div>
 
-    <a class="btn red" href="https://www.twitch.tv/fullcirclewealth" target="_blank" rel="noopener">
-      <div class="icon-box">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="#e05050">
-          <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/>
-        </svg>
+    <div>
+      <div class="module-card" onclick="toggleModule('m2', this)">
+        <div class="module-num">02</div>
+        <div class="module-info">
+          <div class="module-title">Beginner Investing Blueprint</div>
+          <div class="module-lessons">5 lessons · Stocks, crypto & your first portfolio</div>
+        </div>
+        <div class="module-arrow">›</div>
       </div>
-      <div class="btn-text">
-        <span class="btn-label">Twitch</span>
-        <span class="btn-sub">Watch Wealth Wednesday live</span>
+      <div class="lessons-list" id="m2">
+        <a href="https://drive.google.com/file/d/1h6_s8bkeZjcqdXjyvCAjGFwjLRV7X554/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 2.1 — Stocks 101</a>
+        <a href="https://drive.google.com/file/d/1d9nJ-BHCvRKxI7_9SHfyciexKGGkIT1w/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 2.1 — Stocks 101 (Continued)</a>
+        <a href="https://drive.google.com/file/d/1aVly70S015sZCNUZkTJlhjGdsRpGFZic/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 2.2 — Crypto 101</a>
+        <a href="https://drive.google.com/file/d/13YHd0MldOV9nBSFRsm8Zm-nVgkF2d_LT/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 2.3 — ETF Basics (Beginner Guide)</a>
+        <a href="https://drive.google.com/file/d/1nJDlcCQGrrv56z-NR0hZOkBE8kucFIvc/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 2.4 — How to Choose Your Investments</a>
+        <a href="https://drive.google.com/file/d/1qBPE_OYh8deK14MJHrecFPjn2p3kcxlL/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 2.5 — How to Build Your First Portfolio</a>
       </div>
-      <span class="arrow">→</span>
-    </a>
+    </div>
 
-<a class="btn dark" href="https://www.youtube.com/@FullCircleWealth" target="_blank" rel="noopener">
-  <div class="icon-box">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff4444">
-      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-    </svg>
+    <div>
+      <div class="module-card" onclick="toggleModule('m3', this)">
+        <div class="module-num">03</div>
+        <div class="module-info">
+          <div class="module-title">FCW Mindset System</div>
+          <div class="module-lessons">6 lessons · Identity, discipline & market psychology</div>
+        </div>
+        <div class="module-arrow">›</div>
+      </div>
+      <div class="lessons-list" id="m3">
+        <a href="https://drive.google.com/file/d/1bbS3q9-LP3-aJvUnk9J0sEDzSZdMX771/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 3.1 — Identity: Who You Must Become</a>
+        <a href="https://drive.google.com/file/d/14KoWQt5p8AacdICaxFdc6ADlOvUam3hm/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 3.2 — Confidence & Self-Awareness (Part 1)</a>
+        <a href="https://drive.google.com/file/d/1ggvxzgS0oqnWCwdO7xaZO8ybx5x6PBMR/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 3.2 — Confidence & Self-Awareness (Part 2)</a>
+        <a href="https://drive.google.com/file/d/1tatwwqCYSpX9TJeSbMaaTbvk9BWJfW-t/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 3.3 — Emotional Mistakes</a>
+        <a href="https://drive.google.com/file/d/1_p30CyU4SQMPhttM0kHes1uxh-h_mi_H/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 3.3 — Market Psychology</a>
+        <a href="https://drive.google.com/file/d/1vW8ZAdGlwNpV6B0MKLr8M3TH0U2VySyD/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 3.4 — Consistency Rituals</a>
+        <a href="https://drive.google.com/file/d/1BUXM0y0mY50spVtJbqBhJoSw4CDuWuXp/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 3.5 — Spiritual Grounding in Wealth</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="module-card" onclick="toggleModule('m4', this)">
+        <div class="module-num">04</div>
+        <div class="module-info">
+          <div class="module-title">Real-World Market Examples</div>
+          <div class="module-lessons">4 lessons · Charts, ETFs & crypto in the real world</div>
+        </div>
+        <div class="module-arrow">›</div>
+      </div>
+      <div class="lessons-list" id="m4">
+        <a href="https://drive.google.com/file/d/13G8LG-WHEBRj17f9iOLyjSwEOX2yaWc_/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 4.1 — Reading a Simple Stock Chart</a>
+        <a href="https://drive.google.com/file/d/13AvIGk7MTvRqwqizLZ7DxYiBP5FFdDTp/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 4.2 — ETF Walkthrough</a>
+        <a href="https://drive.google.com/file/d/1mxXicJRHMn7PCHoHgsqMOg6-RkAxa4wW/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 4.3 — BTC Chart Walkthrough</a>
+        <a href="https://drive.google.com/file/d/1BLe15RHNfEfca0yXeplE4Yu93Z01rMck/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 4.4 — Crypto Volatility & Risk</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="module-card" onclick="toggleModule('m5', this)">
+        <div class="module-num">05</div>
+        <div class="module-info">
+          <div class="module-title">Daily Routines & Accountability</div>
+          <div class="module-lessons">4 lessons · Build the habits that compound</div>
+        </div>
+        <div class="module-arrow">›</div>
+      </div>
+      <div class="lessons-list" id="m5">
+        <a href="https://drive.google.com/file/d/15ZNlZovTc6ZY-6QiTdKvsmcZoLDkUnHf/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 5.1 — Your Investor Daily Routine</a>
+        <a href="https://drive.google.com/file/d/1owu26aS97-xSz23cMib8SBPdM1i64bTr/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 5.2 — How to Stay Consistent for 12 Months</a>
+        <a href="https://drive.google.com/file/d/1wTz6XRMr7-zBOCmAT3_1UtRPdKlOVHaE/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 5.3 — Investing Habits (Part 1)</a>
+        <a href="https://drive.google.com/file/d/13HdM_PhInwJi0BdYV1NolQNHz4BI28nq/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 5.3 — Investing Habits (Part 2)</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="module-card" onclick="toggleModule('m6', this)">
+        <div class="module-num">06</div>
+        <div class="module-info">
+          <div class="module-title">FCW Community & Weekly Live Calls</div>
+          <div class="module-lessons">2 lessons · How to get the most out of FCW</div>
+        </div>
+        <div class="module-arrow">›</div>
+      </div>
+      <div class="lessons-list" id="m6">
+        <a href="https://drive.google.com/file/d/1wtYoQVrjgD2Ote9SkSyblFhQegRMlga1/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 6.1 — How to Use the FCW Community</a>
+        <a href="https://drive.google.com/file/d/1vrkGZUfV8PiiQMekuEZntOISKvZ1CaqY/view?usp=drive_link" target="_blank" class="lesson-item"><span class="lesson-dot"></span>Lesson 6.2 — What to Expect on Weekly Calls & How to Get the Most Out of FCW</a>
+      </div>
+    </div>
+
   </div>
-  <div class="btn-text">
-    <span class="btn-label">YouTube</span>
-    <span class="btn-sub">Wealth Wednesday & more</span>
+</section>
+
+<div class="divider"></div>
+
+<section id="community">
+  <p class="section-label">Free Bonus</p>
+  <div class="discord-card">
+    <div class="discord-icon">
+      <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.317 1.492a19.825 19.825 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 1.492a.07.07 0 0 0-.032.027C.533 6.093-.32 10.555.099 14.961a.08.08 0 0 0 .031.055 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z" fill="#a855f7"/>
+      </svg>
+    </div>
+    <h3>Join the FCW Discord — Free</h3>
+    <p>Market breakdowns, weekly live calls, community discussions, and people on the same journey as you.</p>
+    <a href="https://discord.gg/T9URtjaBXV" target="_blank" class="discord-join-btn">Join the Community →</a>
   </div>
-  <span class="arrow">→</span>
-</a>
+</section>
 
-  </div>
+<footer>
+  <p>Built by <strong>GoGetter & Flask</strong> · Full Circle Wealth</p>
+  <p style="margin-top: 0.4rem;">Questions? Reach us in the Discord.</p>
+</footer>
 
-  <div class="footer">© Full Circle Wealth</div>
-
-</body>
-</html>
-
-  </div>
-
-  <div class="fcw-footer">© Full Circle Wealth</div>
+<script>
+  function toggleModule(id, card) {
+    const list = document.getElementById(id);
+    const arrow = card.querySelector('.module-arrow');
+    const isOpen = list.classList.contains('open');
+    document.querySelectorAll('.lessons-list').forEach(l => l.classList.remove('open'));
+    document.querySelectorAll('.module-arrow').forEach(a => { a.style.transform = ''; a.style.transition = 'transform 0.2s'; });
+    if (!isOpen) {
+      list.classList.add('open');
+      arrow.style.transform = 'rotate(90deg)';
+      arrow.style.transition = 'transform 0.2s';
+    }
+  }
+</script>
 
 </body>
 </html>
