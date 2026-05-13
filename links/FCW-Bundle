@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Circle Wealth — The Bundle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cyan: #00C8E0;
+      --red: #E24B4A;
+      --bg: #080808;
+      --card: #0C0C0C;
+      --border: #1A1A1A;
+      --text: #fff;
+      --muted: #888;
+      --dim: #444;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: up 0.6s cubic-bezier(0.22,1,0.36,1) 0.05s forwards;
+    }
+    .header-brand { display: flex; align-items: center; gap: 7px; margin-bottom: 1.25rem; }
+    .brand-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+    .brand-name { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); font-weight: 500; }
+    .header-title { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 0.04em; line-height: 1; margin-bottom: 0.75rem; }
+    .header-title span { color: var(--cyan); }
+    .header-sub { font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.65; max-width: 320px; }
+    .header-sub strong { color: var(--text); font-weight: 500; }
+
+    /* ── SECTION LABEL ── */
+    .section-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); font-weight: 500; margin-bottom: 0.75rem; padding-left: 2px; }
+
+    /* ── VIDEO PLACEHOLDER ── */
+    .video-card {
+      background: var(--card);
+      border: 1px dashed #2A2A2A;
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: up 0.6s cubic-bezier(0.22,1,0.36,1) 0.15s forwards;
+    }
+    .video-inner {
+      padding: 2rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+    }
+    .video-play {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      border: 1px solid #2A2A2A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.25rem;
+    }
+    .video-play svg { width: 18px; height: 18px; fill: var(--dim); margin-left: 3px; }
+    .video-title { font-size: 15px; font-weight: 500; color: #333; }
+    .video-sub { font-size: 12px; font-weight: 300; color: #2A2A2A; line-height: 1.6; max-width: 260px; }
+    /* When you have the link, replace the placeholder div with:
+       <a href="YOUR_GOOGLE_DRIVE_LINK" target="_blank" class="video-card"> ... </a>
+       and update video-title color to var(--text) and video-sub to var(--muted) */
+
+    /* ── $200 CARD ── */
+    .card-200 {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: up 0.6s cubic-bezier(0.22,1,0.36,1) 0.25s forwards;
+    }
+    .card-200-header { padding: 1rem 1.25rem; border-bottom: 1px solid #141414; display: flex; align-items: center; justify-content: space-between; }
+    .card-200-header span { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); font-weight: 500; }
+    .card-200-header .live { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--cyan); letter-spacing: 0.08em; }
+    .live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); animation: pulse 1.8s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .card-200-body { padding: 1.5rem 1.25rem 1.25rem; }
+    .card-200-intro { font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; text-align: center; }
+    .card-200-intro strong { color: var(--text); font-weight: 500; }
+
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1.25rem; }
+    .split-card { border-radius: 12px; padding: 1.1rem 1rem; }
+    .split-card.inv { background: #071719; border: 1px solid #0E2F34; }
+    .split-card.spt { background: #150808; border: 1px solid #2E1010; }
+    .sc-lbl { font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; font-weight: 500; margin-bottom: 8px; }
+    .inv .sc-lbl { color: #2E8A96; }
+    .spt .sc-lbl { color: #964040; }
+    .sc-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; line-height: 1; letter-spacing: 0.02em; margin-bottom: 3px; }
+    .inv .sc-num { color: var(--cyan); }
+    .spt .sc-num { color: var(--red); }
+    .sc-period { font-size: 11px; margin-bottom: 10px; }
+    .inv .sc-period { color: #2E8A96; }
+    .spt .sc-period { color: #964040; }
+    .sc-pill { display: inline-block; font-size: 10px; padding: 3px 8px; border-radius: 20px; font-weight: 500; }
+    .inv .sc-pill { background: #071F22; color: #3DBFCC; border: 1px solid #0E3A40; }
+    .spt .sc-pill { background: #1C0808; color: #CC6666; border: 1px solid #3A1414; }
+
+    .verdict { text-align: center; padding: 1rem; border: 1px solid #161616; border-radius: 10px; }
+    .verdict p { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.7; }
+    .verdict p strong { color: var(--text); font-weight: 500; }
+
+    /* ── TRACKER CARD ── */
+    .tracker-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.5rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: up 0.6s cubic-bezier(0.22,1,0.36,1) 0.35s forwards;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .tracker-card:hover { border-color: var(--cyan); }
+    .tracker-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: #071F22;
+      border: 1px solid #0E3A40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .tracker-icon svg { width: 20px; height: 20px; stroke: var(--cyan); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .tracker-text { flex: 1; }
+    .tracker-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+    .tracker-sub { font-size: 12px; font-weight: 300; color: var(--muted); line-height: 1.5; }
+    .link-arrow { font-size: 16px; color: var(--dim); }
+
+    /* ── COURSE CARD ── */
+    .course-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: up 0.6s cubic-bezier(0.22,1,0.36,1) 0.45s forwards;
+    }
+    .course-inner { padding: 1.5rem 1.25rem; }
+    .course-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); font-weight: 500; margin-bottom: 0.75rem; padding: 4px 10px; border: 1px solid #0E3A40; border-radius: 20px; background: #071F22; }
+    .course-title { font-family: 'Bebas Neue', sans-serif; font-size: 34px; letter-spacing: 0.03em; line-height: 1.1; margin-bottom: 0.5rem; }
+    .course-title span { color: var(--cyan); }
+    .course-desc { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; }
+    .course-desc strong { color: var(--text); font-weight: 400; }
+    .modules { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.25rem; }
+    .module { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: #0F0F0F; border: 1px solid #181818; border-radius: 8px; }
+    .module-num { font-family: 'Bebas Neue', sans-serif; font-size: 16px; color: var(--dim); width: 18px; flex-shrink: 0; }
+    .module-text { font-size: 12px; color: #666; }
+    .course-cta { display: block; width: 100%; padding: 13px; border-radius: 10px; background: var(--cyan); border: none; color: #080808; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.02em; cursor: pointer; text-decoration: none; text-align: center; transition: opacity 0.15s; }
+    .course-cta:hover { opacity: 0.85; }
+
+    /* ── DISCORD CARD ── */
+    .discord-card {
+      background: #0E0E14;
+      border: 1px solid #1E1E2E;
+      border-radius: 18px;
+      padding: 1.5rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: up 0.6s cubic-bezier(0.22,1,0.36,1) 0.55s forwards;
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .discord-card:hover { border-color: #5865F2; }
+    .discord-icon { width: 44px; height: 44px; border-radius: 12px; background: #5865F2; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .discord-icon svg { width: 22px; height: 22px; fill: #fff; }
+    .discord-text { flex: 1; }
+    .discord-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+    .discord-sub { font-size: 12px; font-weight: 300; color: var(--muted); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .footer { text-align: center; opacity: 0; transform: translateY(12px); animation: up 0.5s cubic-bezier(0.22,1,0.36,1) 0.65s forwards; }
+    .footer-handles { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 0.5rem; flex-wrap: wrap; }
+    .footer-handles a { font-size: 11px; color: var(--dim); letter-spacing: 0.06em; text-decoration: none; transition: color 0.15s; }
+    .footer-handles a:hover { color: var(--muted); }
+    .footer-sep { color: #222; font-size: 11px; }
+    .footer-copy { font-size: 10px; color: #2A2A2A; letter-spacing: 0.04em; }
+
+    @keyframes up { to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-brand">
+      <div class="brand-dot"></div>
+      <span class="brand-name">Full Circle Wealth</span>
+    </div>
+    <h1 class="header-title">THE <span>BUNDLE</span></h1>
+    <p class="header-sub">Everything you need to <strong>stop waiting and start building.</strong> Built for the everyday person who's been meaning to start.</p>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="section-label">Watch this first</div>
+  <div class="video-card">
+    <div class="video-inner">
+      <div class="video-play">
+        <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <div class="video-title">How to use this bundle</div>
+      <div class="video-sub">Replace this placeholder with your Google Drive video link when ready.</div>
+    </div>
+  </div>
+
+  <!-- $200 CARD -->
+  <div class="section-label" style="margin-top:1.5rem;">The reality check</div>
+  <div class="card-200">
+    <div class="card-200-header">
+      <span>Where your money is going</span>
+      <div class="live"><div class="live-dot"></div>Real numbers</div>
+    </div>
+    <div class="card-200-body">
+      <p class="card-200-intro">You spend <strong>$200 a month</strong> on eating out, going out, clothes, and subscriptions. Here's what that same $200 does if you invest it instead.</p>
+      <div class="split">
+        <div class="split-card inv">
+          <div class="sc-lbl">Invested at 10%</div>
+          <div class="sc-num">$43K</div>
+          <div class="sc-period">after 10 years</div>
+          <span class="sc-pill">you put in $24K</span>
+        </div>
+        <div class="split-card spt">
+          <div class="sc-lbl">Not invested</div>
+          <div class="sc-num">$0</div>
+          <div class="sc-period">after 10 years</div>
+          <span class="sc-pill">and spent $24K</span>
+        </div>
+      </div>
+      <div class="verdict">
+        <p>The money was always there.<br><strong>The decision wasn't.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRACKER -->
+  <div class="section-label" style="margin-top:1.5rem;">Your money tracker</div>
+  <a class="tracker-card" href="https://fullcirclewealth.github.io/links/tracker.html" target="_blank">
+    <div class="tracker-icon">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    </div>
+    <div class="tracker-text">
+      <div class="tracker-title">FCW Money Tracker</div>
+      <div class="tracker-sub">See exactly how much your money could be working for you right now.</div>
+    </div>
+    <span class="link-arrow">→</span>
+  </a>
+
+  <!-- COURSE -->
+  <div class="section-label" style="margin-top:1.5rem;">Start here</div>
+  <div class="course-card">
+    <div class="course-inner">
+      <div class="course-tag">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        FCW Foundation Course
+      </div>
+      <h2 class="course-title">BUILD YOUR <span>BASE</span></h2>
+      <p class="course-desc">Six modules. No jargon. No fluff. Just <strong>the exact steps to go from zero to your first investment</strong> — built for people who've been meaning to start for years.</p>
+      <div class="modules">
+        <div class="module"><span class="module-num">01</span><span class="module-text">Why most people never start — and how to be different</span></div>
+        <div class="module"><span class="module-num">02</span><span class="module-text">How the stock market actually works</span></div>
+        <div class="module"><span class="module-num">03</span><span class="module-text">Opening your first brokerage account</span></div>
+        <div class="module"><span class="module-num">04</span><span class="module-text">What to buy first and why</span></div>
+        <div class="module"><span class="module-num">05</span><span class="module-text">Setting up your automatic investing system</span></div>
+        <div class="module"><span class="module-num">06</span><span class="module-text">Staying consistent when the market drops</span></div>
+      </div>
+      <a class="course-cta" href="https://stan.store/fullcirclewealth" target="_blank">Get the FCW Foundation ↗</a>
+    </div>
+  </div>
+
+  <!-- DISCORD -->
+  <div class="section-label" style="margin-top:1.5rem;">The community</div>
+  <a class="discord-card" href="https://discord.gg/bKbqbmn6Tn" target="_blank">
+    <div class="discord-icon">
+      <svg viewBox="0 0 127.14 96.36" xmlns="http://www.w3.org/2000/svg"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+    </div>
+    <div class="discord-text">
+      <div class="discord-title">Join the FCW Community</div>
+      <div class="discord-sub">Wealth Wednesday recaps, live Q&A, and everyday people building together.</div>
+    </div>
+    <span class="link-arrow">→</span>
+  </a>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-handles">
+      <a href="https://instagram.com/fullcirclewealth_" target="_blank">@fullcirclewealth_</a>
+      <span class="footer-sep">·</span>
+      <a href="https://youtube.com/@FullCircleWealth" target="_blank">@FullCircleWealth</a>
+      <span class="footer-sep">·</span>
+      <a href="https://discord.gg/bKbqbmn6Tn" target="_blank">Discord</a>
+    </div>
+    <p class="footer-copy">Full Circle Wealth · Seattle · Built for the everyday person</p>
+  </div>
+
+</div>
+</body>
+</html>
